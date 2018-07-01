@@ -1,0 +1,7 @@
+Sobre o que tem feito até agora e ideias:
+Lê o arquivo txt testeLabirinto na pasta res, passa isso pra uma matriz (labirinto) e valida se é um labirinto válido, pra
+ser válido eu olho se tem um, e somente um, inicio e fim, acho que o próximo passo é ver se tem um caminno possível entre esses 2 pontos
+fiquem a vontade pra mexer na estrutura de cada casa do labirinto se quiserem, bem como no projeto todo, não faço ideia do que estou fazendo.
+Pra fazer o ranking dos jogadores eu pensei em usar o banco de dados online mlab pq é gratis, uso ele no central ufabc e dá conta de boas.
+Pensei em fazer toda essa parte funcionar antes e só depois a interface, é isto.
+
