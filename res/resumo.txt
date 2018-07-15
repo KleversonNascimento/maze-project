@@ -5,3 +5,9 @@ fiquem a vontade pra mexer na estrutura de cada casa do labirinto se quiserem, b
 Pra fazer o ranking dos jogadores eu pensei em usar o banco de dados online mlab pq é gratis, uso ele no central ufabc e dá conta de boas.
 Pensei em fazer toda essa parte funcionar antes e só depois a interface, é isto.
 
+Alterações (Lucas)
+-passei o que tinha na classe Labirintop para a Principal;
+-modifiquei o CasaLabirinto para ter apenas um campo 'tipo' e deixei com o nome Casa;
+-fiz uma subclasse de Casa, CasaEmBusca (preciso de sugestões para nome), utilizada para encontrar o menor caminho entre o começo e o fim;
+-adicionei algumas funções em FuncoesGerais para implementar a busca já com a contagem do tempo;
+-coloquei a classe No, utilizada pelas classes Fila e Pilha que, por sua vez, também são usadas na busca.
