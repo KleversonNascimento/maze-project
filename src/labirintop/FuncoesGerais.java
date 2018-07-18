@@ -89,12 +89,12 @@ public class FuncoesGerais {
 
         Pilha p = buscarMenorCaminho(labirintoOriginal, inicio_x, inicio_y);
 
+        finalTime = System.currentTimeMillis();
+
         while (!p.isVazio()) {
             Casa casa = (Casa) p.desempilhar();
             System.out.println("X: " + casa.getX() + "\tY: " + casa.getY());
         }
-
-        finalTime = System.currentTimeMillis();
 
         System.out.println("Demorou " + (finalTime - startTime) + " milisegundos");
     }
