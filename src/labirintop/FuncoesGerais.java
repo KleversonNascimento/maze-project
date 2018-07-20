@@ -83,20 +83,20 @@ public class FuncoesGerais {
     }
 
     public static void resolverLabirinto(Casa[][] labirintoOriginal, int inicio_x, int inicio_y) {
-        long startTime, finalTime;
+        long startTime, endTime;
 
         startTime = System.currentTimeMillis();
 
         Pilha p = buscarMenorCaminho(labirintoOriginal, inicio_x, inicio_y);
 
-        finalTime = System.currentTimeMillis();
+        endTime = System.currentTimeMillis();
 
         while (!p.isVazio()) {
             Casa casa = (Casa) p.desempilhar();
             System.out.println("X: " + casa.getX() + "\tY: " + casa.getY());
         }
 
-        System.out.println("Demorou " + (finalTime - startTime) + " milisegundos");
+        System.out.println("Demorou " + (endTime - startTime) + " milisegundos");
     }
 
     private static Pilha buscarMenorCaminho(Casa[][] labirintoOriginal, int inicio_x, int inicio_y) {
