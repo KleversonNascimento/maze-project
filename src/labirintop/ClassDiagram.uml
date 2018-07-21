@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement />
+  <nodes>
+    <node x="31.5" y="0.0">labirintop.Casa</node>
+    <node x="0.0" y="815.0">labirintop.Pilha</node>
+    <node x="304.0" y="0.0">labirintop.Principal</node>
+    <node x="602.0" y="0.0">labirintop.Fila</node>
+    <node x="0.0" y="569.0">labirintop.No</node>
+    <node x="0.0" y="323.0">labirintop.CasaEmBusca</node>
+    <node x="249.0" y="569.0">labirintop.FuncoesGerais</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="labirintop.CasaEmBusca" target="labirintop.Casa">
+      <point x="0.0" y="-100.5" />
+      <point x="0.0" y="136.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="0.8785425101214575" x="411.5" y="484.0" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Methods</Category>
+    <Category>Fields</Category>
+    <Category>Constructors</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+
