@@ -21,28 +21,28 @@ public class Principal {
         //Mostrar e validar propriedades do labirinto
         for (int i = 0; i < posicoesX; i++) {
             for (int j = 0; j < posicoesY; j++) {
-                if (labirintop[i][j].getTipo() == 'P') {
+                if (labirintop[i][j].getTipo() == Casa.INICIO) {
                     if (labirintoTemInicio) {
                         System.out.println("Labirinto tem mais de um inicio, algo de errado não está certo");
                         throw null;
                     } else {
-                        System.out.print("P");
+                        System.out.print(Casa.INICIO);
                         inicioX = i;
                         inicioY = j;
                         labirintoTemInicio = true;
                     }
-                } else if (labirintop[i][j].getTipo() == 'C') {
+                } else if (labirintop[i][j].getTipo() == Casa.FIM) {
                     if (labirintoTemFim) {
                         System.out.println("Labirinto tem mais de um fim, algo de errado não está certo");
                         throw null;
                     } else {
-                        System.out.print("C");
+                        System.out.print(Casa.FIM);
                         labirintoTemFim = true;
                     }
-                } else if (labirintop[i][j].getTipo() == '-') {
-                    System.out.print("-");
+                } else if (labirintop[i][j].getTipo() == Casa.MURO) {
+                    System.out.print(Casa.MURO);
                 } else {
-                    System.out.print("o");
+                    System.out.print(Casa.CAMINHO);
                 }
             }
             System.out.println("");
