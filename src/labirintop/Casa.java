@@ -2,6 +2,10 @@ package labirintop;
 
 public class Casa {
 
+    static final public char CAMINHO = 'o';
+    static final public char MURO = '-';
+    static final public char INICIO = 'P';
+    static final public char FIM = 'C';
     private int x;
     private int y;
     private char tipo;
