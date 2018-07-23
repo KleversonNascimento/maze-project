@@ -1,5 +1,7 @@
 package labirintop;
 
+import java.util.Scanner;
+
 public class Principal {
     
     static String TXTLABIRINTO;
@@ -54,5 +56,50 @@ public class Principal {
         }
         
         FuncoesGerais.resolverLabirinto(labirintop, inicioX, inicioY);
+    }
+    
+    public static void jogar(Casa[][] labirinto) {
+        Personagem player = new Personagem(labirinto[inicioX][inicioY]);
+        Scanner scn = new Scanner(System.in);
+        char movement;
+        long startTime, endTime;
+
+        startTime = System.currentTimeMillis();
+
+        while (player.getLocal().getTipo() != Casa.FIM) {
+            for (int i = 0; i < 100; ++i) {
+                System.out.println();
+            }
+
+            FuncoesGerais.exibirLabirinto(labirinto, player);
+
+            System.out.println("[A]Left   [W]Up   [S]Down   [D]Right");
+            movement = scn.next().charAt(0);
+
+            switch (movement) {
+                case 'w':
+                    player.moveUp(labirinto);
+                    break;
+                case 's':
+                    player.moveDown(labirinto);
+                    break;
+                case 'a':
+                    player.moveLeft(labirinto);
+                    break;
+                case 'd':
+                    player.moveRight(labirinto);
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        endTime = System.currentTimeMillis();
+
+        scn.close();
+
+        System.out.println("Venceu");
+        System.out.println("Demorou " + (endTime - startTime) / 1000
+                + " segundos");
     }
 }
