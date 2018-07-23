@@ -156,13 +156,13 @@ public class FuncoesGerais {
     }
 
     private static boolean explorarCasa(CasaEmBusca novo, CasaEmBusca ant, Fila f) {
-        if (novo.isVisitado() || novo.getTipo() == '-') {
+        if (novo.isVisitado() || novo.getTipo() == Casa.MURO) {
             return false;
         } else {
             novo.setVisitado(true);
             novo.setPai(ant);
             f.enfileirar(novo);
-            return novo.getTipo() == 'C';
+            return novo.getTipo() == Casa.FIM;
         }
     }
 }
