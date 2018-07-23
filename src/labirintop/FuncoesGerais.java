@@ -81,6 +81,35 @@ public class FuncoesGerais {
             throw ex;
         }
     }
+    
+    public static void exibirLabirinto(Casa[][] labirinto) {
+        for (int i = 0; i < labirinto.length; i++) {
+            for (int j = 0; j < labirinto[i].length; j++) {
+                if (labirinto[i][j].getTipo() != Casa.INICIO) {
+                    System.out.print(labirinto[i][j].getTipo());
+                } else {
+                    System.out.print(Casa.CAMINHO);
+                }
+            }
+            System.out.println();
+        }
+    }
+
+    public static void exibirLabirinto(Casa[][] labirinto, Personagem player) {
+        for (int i = 0; i < labirinto.length; i++) {
+            for (int j = 0; j < labirinto[i].length; j++) {
+                if (i == player.getLocal().getX()
+                        && j == player.getLocal().getY()) {
+                    System.out.print(Personagem.IMG);
+                } else if (labirinto[i][j].getTipo() != Casa.INICIO) {
+                    System.out.print(labirinto[i][j].getTipo());
+                } else {
+                    System.out.print(Casa.CAMINHO);
+                }
+            }
+            System.out.println();
+        }
+    }
 
     public static void resolverLabirinto(Casa[][] labirintoOriginal, int inicio_x, int inicio_y) {
         long startTime, endTime;
