@@ -25,35 +25,30 @@ public class Principal {
             for (int j = 0; j < posicoesY; j++) {
                 if (labirintop[i][j].getTipo() == Casa.INICIO) {
                     if (labirintoTemInicio) {
-                        System.out.println("Labirinto tem mais de um inicio, algo de errado não está certo");
+                        System.out.println("Labirinto tem mais de um inicio");
                         throw null;
                     } else {
-                        System.out.print(Casa.INICIO);
                         inicioX = i;
                         inicioY = j;
                         labirintoTemInicio = true;
                     }
                 } else if (labirintop[i][j].getTipo() == Casa.FIM) {
                     if (labirintoTemFim) {
-                        System.out.println("Labirinto tem mais de um fim, algo de errado não está certo");
+                        System.out.println("Labirinto tem mais de um fim");
                         throw null;
                     } else {
-                        System.out.print(Casa.FIM);
                         labirintoTemFim = true;
                     }
-                } else if (labirintop[i][j].getTipo() == Casa.MURO) {
-                    System.out.print(Casa.MURO);
-                } else {
-                    System.out.print(Casa.CAMINHO);
                 }
             }
-            System.out.println("");
         }
         
         if ((!labirintoTemInicio) || (!labirintoTemFim)) {
-            System.out.println("Esse labirinto não tem fim ou não tem inicio, me ajuda a te ajudar");
+            System.out.println("Esse labirinto não tem fim ou não tem inicio");
             throw null;
         }
+        
+        jogar(labirintop);
         
         FuncoesGerais.resolverLabirinto(labirintop, inicioX, inicioY);
     }
