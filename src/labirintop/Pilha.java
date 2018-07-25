@@ -28,8 +28,4 @@ public class Pilha {
     public boolean isVazio() {
         return topo == null;
     }
-
-	public boolean isUnico() {
-		return head == tail;
-	}
 }
