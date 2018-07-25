@@ -53,7 +53,7 @@ public class FuncoesGerais {
 
             //Verifica se a quantidade de linhas bate
             if (x != (txtLinhas.length - 1)) {
-                System.out.println("Quantidade de linhas informada e a quantidade real no arquivo não batem, você tá fazendo merda");
+                System.out.println("Quantidade de linhas informada e a quantidade real no arquivo são diferentes");
                 throw null;
             }
 
@@ -69,7 +69,7 @@ public class FuncoesGerais {
                         //Salvar caractere na posicao da Matriz
                         labirintop[i][j] = new Casa(i, j, caractere);
                     } catch (Exception ex) {
-                        System.out.println("Quantidade de colunas informada e a quantidade real no arquivo não batem, você tá fazendo merda");
+                        System.out.println("Quantidade de colunas informada e a quantidade real no arquivo são diferentes");
                         throw null;
                     }
                 }
