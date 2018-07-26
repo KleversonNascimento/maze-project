@@ -1,100 +1,62 @@
 package labirintop;
 
-import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
 
 public class Principal {
-    
-    static String TXTLABIRINTO;
-    static int posicoesX, posicoesY, inicioX, inicioY;
-    static boolean labirintoTemInicio = false, labirintoTemFim = false;
-    
+
     public static void main(String[] args) {
-        //Ler arquivo
-        TXTLABIRINTO = FuncoesGerais.convertFileToString("res/testeLabirinto.txt");
+        String txtLabirinto = fileToString("resources/Labirinto1.txt");
 
-        //Descobrir quantas posicoes terá o labirinto
-        posicoesX = FuncoesGerais.reconhecerQuantidadeLinhasLabirinto(TXTLABIRINTO);
-        posicoesY = FuncoesGerais.reconhecerQuantidadeColunasLabirinto(TXTLABIRINTO);
-        System.out.println("linhas:" + posicoesX + ", colunas: " + posicoesY);
+        Labirinto labirinto = construirLabirinto(txtLabirinto);
 
-        //Criar matriz com o labirinto do arquivo
-        Casa[][] labirintop = FuncoesGerais.passarTXTparaMatriz(TXTLABIRINTO, posicoesX, posicoesY);
-
-        //Mostrar e validar propriedades do labirinto
-        for (int i = 0; i < posicoesX; i++) {
-            for (int j = 0; j < posicoesY; j++) {
-                if (labirintop[i][j].getTipo() == Casa.INICIO) {
-                    if (labirintoTemInicio) {
-                        System.out.println("Labirinto tem mais de um inicio");
-                        throw null;
-                    } else {
-                        inicioX = i;
-                        inicioY = j;
-                        labirintoTemInicio = true;
-                    }
-                } else if (labirintop[i][j].getTipo() == Casa.FIM) {
-                    if (labirintoTemFim) {
-                        System.out.println("Labirinto tem mais de um fim");
-                        throw null;
-                    } else {
-                        labirintoTemFim = true;
-                    }
-                }
-            }
-        }
-        
-        if ((!labirintoTemInicio) || (!labirintoTemFim)) {
-            System.out.println("Esse labirinto não tem fim ou não tem inicio");
-            throw null;
-        }
-        
-        jogar(labirintop);
-        
-        FuncoesGerais.resolverLabirinto(labirintop, inicioX, inicioY);
+        Jogador jogador = new Jogador(labirinto);
+        jogador.encontrarSaida();
+        //jogador.jogarManual();
     }
-    
-    public static void jogar(Casa[][] labirinto) {
-        Personagem player = new Personagem(labirinto[inicioX][inicioY]);
-        Scanner scn = new Scanner(System.in);
-        char movement;
-        long startTime, endTime;
 
-        startTime = System.currentTimeMillis();
+    public static String fileToString(String file) {
+        StringBuilder sb = new StringBuilder();
 
-        while (player.getLocal().getTipo() != Casa.FIM) {
-            for (int i = 0; i < 100; ++i) {
-                System.out.println();
+        try {
+            BufferedReader in = new BufferedReader(new InputStreamReader(new FileInputStream(file), "UTF-8"));
+            char[] buf = new char[1024];
+            int len;
+
+            while ((len = in.read(buf, 0, buf.length)) > 0) {
+                sb.append(buf, 0, len);
             }
 
-            FuncoesGerais.exibirLabirinto(labirinto, player);
+            in.close();
 
-            System.out.println("[A]Left   [W]Up   [S]Down   [D]Right");
-            movement = scn.next().charAt(0);
+        } catch (IOException e) {
+            System.out.println("Erro na conversão do arquivo");
+        }
 
-            switch (movement) {
-                case 'w':
-                    player.moveUp(labirinto);
-                    break;
-                case 's':
-                    player.moveDown(labirinto);
-                    break;
-                case 'a':
-                    player.moveLeft(labirinto);
-                    break;
-                case 'd':
-                    player.moveRight(labirinto);
-                    break;
-                default:
-                    break;
+        return sb.toString();
+    }
+
+    public static Labirinto construirLabirinto(String txtLabirinto) {
+        String linhas[] = txtLabirinto.split("\n");
+        int dimensao = linhas.length;
+
+        Casa[][] casas = new Casa[dimensao][dimensao];
+        Casa inicio = null;
+
+        for (int i = 0; i < dimensao; i++) {
+            for (int j = 0; j < dimensao; j++) {
+                char caractere = linhas[i].charAt(j);
+
+                if (caractere == FuncoesGerais.INICIO) {
+                    inicio = new Casa(i, j, caractere);
+                }
+
+                casas[i][j] = new Casa(i, j, caractere);
             }
         }
 
-        endTime = System.currentTimeMillis();
-
-        scn.close();
-
-        System.out.println("Venceu");
-        System.out.println("Demorou " + (endTime - startTime) / 1000
-                + " segundos");
+        return new Labirinto(casas, inicio);
     }
 }

@@ -2,41 +2,45 @@ package labirintop;
 
 public class Casa {
 
-    static final public char CAMINHO = 'o';
-    static final public char MURO = '-';
-    static final public char INICIO = 'P';
-    static final public char FIM = 'C';
     private int x;
     private int y;
     private char tipo;
+    private boolean visitado;
+    private Casa pai;
 
     public Casa(int x, int y, char tipo) {
         this.x = x;
         this.y = y;
         this.tipo = tipo;
+        visitado = false;
+        pai = null;
     }
 
     public int getX() {
         return x;
     }
 
-    public void setX(int x) {
-        this.x = x;
-    }
-
     public int getY() {
         return y;
-    }
-
-    public void setY(int y) {
-        this.y = y;
     }
 
     public char getTipo() {
         return tipo;
     }
 
-    public void setTipo(char tipo) {
-        this.tipo = tipo;
+    public boolean isVisitado() {
+        return visitado;
+    }
+
+    public void setVisitado(boolean visitado) {
+        this.visitado = visitado;
+    }
+
+    public Casa getPai() {
+        return pai;
+    }
+
+    public void setPai(Casa pai) {
+        this.pai = pai;
     }
 }
