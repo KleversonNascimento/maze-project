@@ -146,7 +146,7 @@ public class Jogador {
         startTime = System.currentTimeMillis();
 
         while (getLocal().getTipo() != FuncoesGerais.SAIDA) {
-            labirinto.exibirLabirinto();
+            labirinto.exibirLabirinto(local);
 
             System.out.println("[A]Left   [W]Up   [S]Down   [D]Right");
             movement = scn.next().charAt(0);
