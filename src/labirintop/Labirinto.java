@@ -41,4 +41,18 @@ public class Labirinto {
             System.out.println();
         }
     }
+    
+    public void exibirLabirinto(Casa local) {
+        for (int i = 0; i < getDimensao(); i++) {
+            for (int j = 0; j < getDimensao(); j++) {
+                if (i == local.getX() && j == local.getY()) {
+                    System.out.print('@');
+                } else {
+                    System.out.print(getCasa(i, j).getTipo());
+                }
+            }
+
+            System.out.println();
+        }
+    }
 }
