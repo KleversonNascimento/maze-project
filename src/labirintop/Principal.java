@@ -1,14 +1,22 @@
 package labirintop;
 
-import java.io.BufferedReader;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStreamReader;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 public class Principal {
 
     public static void main(String[] args) {
-        String txtLabirinto = fileToString("resources/Labirinto1.txt");
+
+        String txtLabirinto = "";
+
+        try {
+            txtLabirinto = lerLabirinto("resources/labirinto1.txt", StandardCharsets.UTF_8);
+        } catch (IOException e) {
+            System.out.println("Erro ao abrir o arquivo");
+        }
 
         Labirinto labirinto = construirLabirinto(txtLabirinto);
 
@@ -17,29 +25,13 @@ public class Principal {
         //jogador.jogarManual();
     }
 
-    public static String fileToString(String file) {
-        StringBuilder sb = new StringBuilder();
-
-        try {
-            BufferedReader in = new BufferedReader(new InputStreamReader(new FileInputStream(file), "UTF-8"));
-            char[] buf = new char[1024];
-            int len;
-
-            while ((len = in.read(buf, 0, buf.length)) > 0) {
-                sb.append(buf, 0, len);
-            }
-
-            in.close();
-
-        } catch (IOException e) {
-            System.out.println("Erro na conversão do arquivo");
-        }
-
-        return sb.toString();
+    public static String lerLabirinto(String path, Charset encoding) throws IOException {
+        byte[] encoded = Files.readAllBytes(Paths.get(path));
+        return new String(encoded, encoding);
     }
 
-    public static Labirinto construirLabirinto(String txtLabirinto) {
-        String linhas[] = txtLabirinto.split("\n");
+    public static Labirinto construirLabirinto(String labirinto) {
+        String linhas[] = labirinto.replace("\r\n", "\n").replace("\uFEFF","").split("\n");
         int dimensao = linhas.length;
 
         Casa[][] casas = new Casa[dimensao][dimensao];
