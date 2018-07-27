@@ -1,17 +1,15 @@
 package labirintop;
 
-public class Casa {
+public abstract class Casa {
 
     private int x;
     private int y;
-    private char tipo;
     private boolean visitado;
     private Casa pai;
 
-    public Casa(int x, int y, char tipo) {
+    public Casa(int x, int y) {
         this.x = x;
         this.y = y;
-        this.tipo = tipo;
         visitado = false;
         pai = null;
     }
@@ -22,10 +20,6 @@ public class Casa {
 
     public int getY() {
         return y;
-    }
-
-    public char getTipo() {
-        return tipo;
     }
 
     public boolean isVisitado() {
@@ -43,4 +37,7 @@ public class Casa {
     public void setPai(Casa pai) {
         this.pai = pai;
     }
+
+    public abstract void mensagem();
+    public abstract char getChar();
 }

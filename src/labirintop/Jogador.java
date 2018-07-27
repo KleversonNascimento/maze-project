@@ -4,7 +4,6 @@ import java.util.Scanner;
 
 public class Jogador {
 
-    public static final char IMG = '@';
     private Labirinto labirinto;
     private Casa local;
 
@@ -25,17 +24,17 @@ public class Jogador {
         if (local.getY() > 0) {
             final Casa casaEsquerda = labirinto.getCasa(local.getX(), local.getY() - 1);
 
-            if (casaEsquerda.getTipo() != FuncoesGerais.MURO) {
+            if (!(casaEsquerda instanceof Parede)) {
                 setLocal(casaEsquerda);
             }
         }
     }
 
     private void moveRight() {
-        if (local.getY() < labirinto.getDimensao()) {
+        if (local.getY() < labirinto.getDimensao() - 1) {
             final Casa casaDireita = labirinto.getCasa(local.getX(), local.getY() + 1);
 
-            if (casaDireita.getTipo() != FuncoesGerais.MURO) {
+            if (!(casaDireita instanceof Parede)) {
                 setLocal(casaDireita);
             }
         }
@@ -45,17 +44,17 @@ public class Jogador {
         if (local.getX() > 0) {
             final Casa casaCima = labirinto.getCasa(local.getX() - 1, local.getY());
 
-            if (casaCima.getTipo() != FuncoesGerais.MURO) {
+            if (!(casaCima instanceof Parede)) {
                 setLocal(casaCima);
             }
         }
     }
 
     private void moveDown() {
-        if (local.getX() < labirinto.getDimensao()) {
+        if (local.getX() < labirinto.getDimensao() - 1) {
             final Casa casaCima = labirinto.getCasa(local.getX() + 1, local.getY());
 
-            if (casaCima.getTipo() != FuncoesGerais.MURO) {
+            if (!(casaCima instanceof Parede)) {
                 setLocal(casaCima);
             }
         }
@@ -72,15 +71,15 @@ public class Jogador {
 
         while (!p.isVazio()) {
             Casa casa = (Casa) p.desempilhar();
-            System.out.println("X: " + casa.getX() + "\tY: " + casa.getY());
+            casa.mensagem();
         }
 
         System.out.println("Demorou " + (endTime - startTime) + " milisegundos");
     }
 
     private Pilha buscarMenorCaminho(Labirinto labirinto) {
-        Casa inicio = labirinto.getInicio();
-        Casa fim = inicio;
+        Inicio inicio = labirinto.getInicio();
+        Casa fim = null;
         Fila f = new Fila();
         boolean achouFinal = false;
 
@@ -128,13 +127,14 @@ public class Jogador {
     }
 
     private boolean explorarCasa(Casa novo, Casa ant, Fila f) {
-        if (novo.isVisitado() || novo.getTipo() == FuncoesGerais.MURO) {
+        if (novo.isVisitado() || novo instanceof Parede) {
             return false;
         } else {
             novo.setVisitado(true);
             novo.setPai(ant);
             f.enfileirar(novo);
-            return novo.getTipo() == FuncoesGerais.SAIDA;
+
+            return novo instanceof Saida;
         }
     }
 
@@ -145,11 +145,11 @@ public class Jogador {
 
         startTime = System.currentTimeMillis();
 
-        while (getLocal().getTipo() != FuncoesGerais.SAIDA) {
-            labirinto.exibirLabirinto();
+        while (!(getLocal() instanceof Saida)) {
+            labirinto.exibirLabirinto(getLocal());
 
             System.out.println("[A]Left   [W]Up   [S]Down   [D]Right");
-            movement = scn.next().charAt(0);
+            movement = Character.toLowerCase(scn.next().charAt(0));
 
             switch (movement) {
                 case 'w':
