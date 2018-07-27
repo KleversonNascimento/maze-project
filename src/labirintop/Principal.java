@@ -6,23 +6,39 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
+import java.util.Scanner;
+
 public class Principal {
 
     public static void main(String[] args) {
 
-        String txtLabirinto = "";
+        Scanner scn = new Scanner(System.in);
+        String nomeLabirinto, txtLabirinto = "";
+        char tipoJogador;
 
+        System.out.println("Em qual labirinto você quer jogar?");
+
+        nomeLabirinto = scn.next();
         try {
-            txtLabirinto = lerLabirinto("resources/labirinto1.txt", StandardCharsets.UTF_8);
+            txtLabirinto = lerLabirinto("res/" + nomeLabirinto + ".txt", StandardCharsets.UTF_8);
         } catch (IOException e) {
             System.out.println("Erro ao abrir o arquivo");
         }
 
         Labirinto labirinto = construirLabirinto(txtLabirinto);
 
+        System.out.println("Escolha o tipo de jogador:");
+        System.out.println("[H]umano   [M]áquina");
+
+        tipoJogador = scn.next().charAt(0);
         Jogador jogador = new Jogador(labirinto);
-        jogador.encontrarSaida();
-        //jogador.jogarManual();
+        if (tipoJogador == 'H') {
+            jogador.jogarManual();
+        } else if (tipoJogador == 'M') {
+            jogador.encontrarSaida();
+        }
+
+        scn.close();
     }
 
     public static String lerLabirinto(String path, Charset encoding) throws IOException {
