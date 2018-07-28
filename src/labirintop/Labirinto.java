@@ -3,24 +3,19 @@ package labirintop;
 public class Labirinto {
 
     private Casa[][] casas;
-    private Inicio inicio;
+    private Casa inicio;
 
-    public Labirinto(Casa[][] casas, Inicio inicio) {
+    public Labirinto(Casa[][] casas, Casa inicio) {
         this.casas = casas;
         this.inicio = inicio;
     }
 
-    public Inicio getInicio() {
+    public Casa getInicio() {
         return inicio;
     }
 
-    public Casa getCasa(int x, int y) {
-        if(x >= 0 && y >= 0 && x < getDimensao() && y < getDimensao()) {
-            return casas[x][y];
-        }
-        else {
-            return null;
-        }
+    public Casa getCasa(int x, int y) throws IndexOutOfBoundsException {
+        return casas[x][y];
     }
 
     public int getDimensao() {
@@ -30,7 +25,7 @@ public class Labirinto {
     public void exibirLabirinto() {
         for (int i = 0; i < getDimensao(); i++) {
             for (int j = 0; j < getDimensao(); j++) {
-                System.out.print(getCasa(i, j).getChar());
+                System.out.print(getCasa(i, j).getTipoCasa().getCaractere());
             }
 
             System.out.println();
@@ -43,7 +38,7 @@ public class Labirinto {
                 if (i == local.getX() && j == local.getY()) {
                     System.out.print('@');
                 } else {
-                    System.out.print(getCasa(i, j).getChar());
+                    System.out.print(getCasa(i, j).getTipoCasa().getCaractere());
                 }
             }
 

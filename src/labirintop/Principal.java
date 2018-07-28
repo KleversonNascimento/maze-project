@@ -5,6 +5,13 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Scanner;
 
+/**
+ * @author  Denildo Braga
+ * @author  Kleverson Nascimento
+ * @author  Lucas Ferraz
+ * @author  Matheus Henrique
+ */
+
 public class Principal {
 
     public static void main(String[] args) {
@@ -13,6 +20,7 @@ public class Principal {
             int dificuldade;
             String txtLabirinto;
             Labirinto labirinto;
+            Jogador jogador = null;
             char tipoJogador;
 
             dificuldade = escolherDificulade();
@@ -23,13 +31,13 @@ public class Principal {
 
             tipoJogador = escolherTipoJogador();
 
-            Jogador jogador = new Jogador(labirinto);
-
-            if (Character.toUpperCase(tipoJogador) == 'H') {
-                jogador.jogarManual();
-            } else if (Character.toUpperCase(tipoJogador) == 'M') {
-                jogador.encontrarSaida();
+            if (tipoJogador == 'H') {
+                jogador = new JogadorHumano(labirinto);
+            } else if (tipoJogador == 'M') {
+                jogador = new JogadorMaquina(labirinto);
             }
+
+            jogador.encontrarSaida();
 
         } catch (Exception e) {
             System.out.println("ERRO");
@@ -37,40 +45,50 @@ public class Principal {
         }
     }
 
-    public static int escolherDificulade() {
+    private static int escolherDificulade() {
         Scanner scn = new Scanner(System.in);
+        int dificuldade;
 
-        System.out.println("Em qual labirinto você quer jogar?");
-        System.out.println("1 - Muito facil");
-        System.out.println("2 - Facil");
-        System.out.println("3 - Medio");
-        System.out.println("4 - Dificil");
-        System.out.println("5 - Muito dificil");
+        do {
+            System.out.println("Em qual labirinto voce quer jogar?");
+            System.out.println("1 - Muito facil");
+            System.out.println("2 - Facil");
+            System.out.println("3 - Medio");
+            System.out.println("4 - Dificil");
+            System.out.println("5 - Muito dificil");
 
-        return scn.nextInt();
+            dificuldade = scn.nextInt();
+        } while (dificuldade < 1 || dificuldade > 5);
+
+        return dificuldade;
     }
 
-    public static char escolherTipoJogador() {
+    private static char escolherTipoJogador() {
         Scanner scn = new Scanner(System.in);
+        char tipoJogador;
 
-        System.out.println("Escolha o tipo de jogador:");
-        System.out.println("[H]umano   [M]áquina");
+        do {
+            System.out.println("Escolha o tipo de jogador:");
+            System.out.println("[H]umano    [M]aquina");
 
-        return scn.next().charAt(0);
+            tipoJogador = Character.toUpperCase(scn.next().charAt(0));
+        } while (tipoJogador != 'H' && tipoJogador != 'M');
+
+        return tipoJogador;
     }
 
-    public static String lerLabirinto(String path) throws IOException {
+    private static String lerLabirinto(String path) throws IOException {
         byte[] encoded = Files.readAllBytes(Paths.get(path));
 
         return new String(encoded);
     }
 
-    public static Labirinto construirLabirinto(String labirinto) {
+    private static Labirinto construirLabirinto(String labirinto) {
         String linhas[] = labirinto.replace("\r\n", "\n").replace("\uFEFF","").split("\n");
         int dimensao = linhas.length;
 
         Casa[][] casas = new Casa[dimensao][dimensao];
-        Inicio inicio = null;
+        Casa inicio = null;
 
         for (int i = 0; i < dimensao; i++) {
             for (int j = 0; j < dimensao; j++) {
@@ -78,20 +96,23 @@ public class Principal {
 
                 switch (caractere) {
                     case '#':
-                        casas[i][j] = new Parede(i, j);
+                        casas[i][j] = new Casa(i, j, TipoCasa.PAREDE);
                         break;
                     case ' ':
-                        casas[i][j] = new Caminho(i, j);
+                        casas[i][j] = new Casa(i, j, TipoCasa.CAMINHO);
                         break;
                     case 'I':
-                        inicio = new Inicio(i, j);
-                        casas[i][j] = inicio;
+                        casas[i][j] = new Casa(i, j, TipoCasa.INICIO);
                         break;
                     case 'S':
-                        casas[i][j] = new Saida(i, j);
+                        casas[i][j] = new Casa(i, j, TipoCasa.SAIDA);
                         break;
                     default:
                         break;
+                }
+
+                if (casas[i][j].getTipoCasa() == TipoCasa.INICIO) {
+                    inicio = casas[i][j];
                 }
             }
         }
