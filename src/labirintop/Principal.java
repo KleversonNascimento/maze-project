@@ -1,8 +1,6 @@
 package labirintop;
 
 import java.io.IOException;
-import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Scanner;
@@ -11,41 +9,60 @@ public class Principal {
 
     public static void main(String[] args) {
 
+        try {
+            int dificuldade;
+            String txtLabirinto;
+            Labirinto labirinto;
+            char tipoJogador;
+
+            dificuldade = escolherDificulade();
+
+            txtLabirinto = lerLabirinto("resources/lab" + dificuldade + ".txt");
+
+            labirinto = construirLabirinto(txtLabirinto);
+
+            tipoJogador = escolherTipoJogador();
+
+            Jogador jogador = new Jogador(labirinto);
+
+            if (Character.toUpperCase(tipoJogador) == 'H') {
+                jogador.jogarManual();
+            } else if (Character.toUpperCase(tipoJogador) == 'M') {
+                jogador.encontrarSaida();
+            }
+
+        } catch (Exception e) {
+            System.out.println("ERRO");
+            System.exit(1);
+        }
+    }
+
+    public static int escolherDificulade() {
         Scanner scn = new Scanner(System.in);
-        String nomeLabirinto, txtLabirinto = "";
-        char tipoJogador;
 
         System.out.println("Em qual labirinto você quer jogar?");
-        nomeLabirinto = scn.next();
+        System.out.println("1 - Muito facil");
+        System.out.println("2 - Facil");
+        System.out.println("3 - Medio");
+        System.out.println("4 - Dificil");
+        System.out.println("5 - Muito dificil");
 
-        try {
-            txtLabirinto = lerLabirinto("resources/" + nomeLabirinto + ".txt", StandardCharsets.UTF_8);
-        } catch (IOException e) {
-            System.out.println("Erro ao abrir o arquivo");
-        }
+        return scn.nextInt();
+    }
 
-        Labirinto labirinto = construirLabirinto(txtLabirinto);
+    public static char escolherTipoJogador() {
+        Scanner scn = new Scanner(System.in);
 
         System.out.println("Escolha o tipo de jogador:");
         System.out.println("[H]umano   [M]áquina");
 
-        tipoJogador = scn.next().charAt(0);
-
-        Jogador jogador = new Jogador(labirinto);
-
-        if (tipoJogador == 'H') {
-            jogador.jogarManual();
-        } else if (tipoJogador == 'M') {
-            jogador.encontrarSaida();
-        }
-
-        scn.close();
+        return scn.next().charAt(0);
     }
 
-    public static String lerLabirinto(String path, Charset encoding) throws IOException {
+    public static String lerLabirinto(String path) throws IOException {
         byte[] encoded = Files.readAllBytes(Paths.get(path));
 
-        return new String(encoded, encoding);
+        return new String(encoded);
     }
 
     public static Labirinto construirLabirinto(String labirinto) {
