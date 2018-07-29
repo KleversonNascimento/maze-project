@@ -51,11 +51,11 @@ public class Principal {
 
         do {
             System.out.println("Em qual labirinto voce quer jogar?");
-            System.out.println("1 - Muito facil");
-            System.out.println("2 - Facil");
-            System.out.println("3 - Medio");
-            System.out.println("4 - Dificil");
-            System.out.println("5 - Muito dificil");
+            System.out.println("1 - Muito fácil");
+            System.out.println("2 - Fácil");
+            System.out.println("3 - Mádio");
+            System.out.println("4 - Difícil");
+            System.out.println("5 - Muito difícil");
 
             dificuldade = scn.nextInt();
         } while (dificuldade < 1 || dificuldade > 5);
@@ -69,7 +69,7 @@ public class Principal {
 
         do {
             System.out.println("Escolha o tipo de jogador:");
-            System.out.println("[H]umano    [M]aquina");
+            System.out.println("[H]umano    [M]áquina");
 
             tipoJogador = Character.toUpperCase(scn.next().charAt(0));
         } while (tipoJogador != 'H' && tipoJogador != 'M');
