@@ -10,7 +10,7 @@ public final class JogadorHumano extends Jogador {
 
     @Override
     public void encontrarSaida() {
-        System.out.println("Bem-vindo ao labinTOP!");
+        System.out.println("Bem vindo ao labirinTOP!");
 
         Scanner scn = new Scanner(System.in);
         char movement;
@@ -21,7 +21,7 @@ public final class JogadorHumano extends Jogador {
         while (getLocal().getTipoCasa() != TipoCasa.SAIDA) {
             labirinto.exibirLabirinto(getLocal());
 
-            System.out.println("[A]Left   [W]Up   [S]Down   [D]Right");
+            System.out.println("[A]Esquerda   [W]Cima   [S]Baixo   [D]Direita");
             movement = Character.toLowerCase(scn.next().charAt(0));
 
             switch (movement) {
@@ -42,7 +42,7 @@ public final class JogadorHumano extends Jogador {
 
         endTime = System.currentTimeMillis();
 
-        System.out.println("Parabens! Voce resolveu o labinTOP!");
+        System.out.println("Parabéns! Você resolveu o labirinTOP!");
         System.out.println("Demorou " + ((endTime - startTime) / 1000) + " segundos");
     }
 
