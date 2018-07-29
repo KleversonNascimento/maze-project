@@ -50,7 +50,7 @@ public class Principal {
         int dificuldade;
 
         do {
-            System.out.println("Em qual labirinto voce quer jogar?");
+            System.out.println("Em qual labirinto você quer jogar?");
             System.out.println("1 - Muito fácil");
             System.out.println("2 - Fácil");
             System.out.println("3 - Mádio");
