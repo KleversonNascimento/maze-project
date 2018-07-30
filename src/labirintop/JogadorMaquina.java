@@ -1,6 +1,6 @@
 package labirintop;
 
-public final class JogadorMaquina extends Jogador {
+public class JogadorMaquina extends Jogador {
 
     public JogadorMaquina(Labirinto labirinto) {
         super(labirinto);
@@ -24,7 +24,7 @@ public final class JogadorMaquina extends Jogador {
             }
         }
 
-        labirinto.exibirLabirinto();
+        labirinto.exibir();
 
         System.out.println("Demorou " + (endTime - startTime) + " milisegundos");
     }

@@ -5,7 +5,7 @@ public enum TipoCasa {
     SAIDA('S'),
     CAMINHO(' '),
     PAREDE('#'),
-    MARCADOR('*');
+    MARCADOR('.');
 
     private char caractere;
 

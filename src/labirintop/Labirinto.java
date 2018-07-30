@@ -22,7 +22,7 @@ public class Labirinto {
         return casas.length;
     }
 
-    public void exibirLabirinto() {
+    public void exibir() {
         for (int i = 0; i < getDimensao(); i++) {
             for (int j = 0; j < getDimensao(); j++) {
                 System.out.print(getCasa(i, j).getTipoCasa().getCaractere());
@@ -32,7 +32,7 @@ public class Labirinto {
         }
     }
 
-    public void exibirLabirinto(Casa local) {
+    public void exibir(Casa local) {
         for (int i = 0; i < getDimensao(); i++) {
             for (int j = 0; j < getDimensao(); j++) {
                 if (i == local.getX() && j == local.getY()) {

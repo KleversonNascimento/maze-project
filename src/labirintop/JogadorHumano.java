@@ -2,10 +2,12 @@ package labirintop;
 
 import java.util.Scanner;
 
-public final class JogadorHumano extends Jogador {
+public class JogadorHumano extends Jogador {
+    private Casa local;
 
     public JogadorHumano(Labirinto labirinto) {
         super(labirinto);
+        local = labirinto.getInicio();
     }
 
     @Override
@@ -19,7 +21,7 @@ public final class JogadorHumano extends Jogador {
         startTime = System.currentTimeMillis();
 
         while (getLocal().getTipoCasa() != TipoCasa.SAIDA) {
-            labirinto.exibirLabirinto(getLocal());
+            labirinto.exibir(getLocal());
 
             System.out.println("[A]Esquerda   [W]Cima   [S]Baixo   [D]Direita");
             movement = Character.toLowerCase(scn.next().charAt(0));
@@ -84,5 +86,13 @@ public final class JogadorHumano extends Jogador {
                 setLocal(casaBaixo);
             }
         }
+    }
+
+    public Casa getLocal() {
+        return local;
+    }
+
+    public void setLocal(Casa local) {
+        this.local = local;
     }
 }
